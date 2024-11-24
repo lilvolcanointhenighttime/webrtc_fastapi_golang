@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>WebSocket Client</h1>
+<form id="dataForm">
+    <input type="text" id="dataInput" placeholder="Введите данные" required>
+    <button type="submit">Отправить</button>
+</form>
+
+<div id="messages"></div>
+
+<script>
+    const socket = new WebSocket("ws://" + window.location.host + "/api/v2/ws");
+
+    socket.onopen = () => {
+        console.log("Соединение установлено");
+    };
+
+    socket.onmessage = (event) => {
+        const messagesDiv = document.getElementById('messages');
+        answer = JSON.parse(event.data);
+        messagesDiv.innerHTML += `<p>${answer.body}</p>`;
+    };
+
+    socket.onclose = () => {
+        console.log("Соединение закрыто");
+    };
+
+    const form = document.getElementById('dataForm');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const inputData = document.getElementById('dataInput').value;
+        socket.send(inputData);
+
+        document.getElementById('dataInput').value = '';
+    });
+</script>
+
+</body>
+</html>

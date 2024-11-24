@@ -1,0 +1,9 @@
+from python:3.12.4-slim
+
+WORKDIR .
+RUN mkdir /src
+COPY src/backend/webrtc_fastapi/config/req.txt /src/req.txt
+
+RUN python -m pip install -r ./src/req.txt
+
+copy ./src/backend/webrtc_fastapi ./src

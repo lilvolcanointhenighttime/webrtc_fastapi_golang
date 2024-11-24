@@ -1,0 +1,6 @@
+FROM golang:latest
+RUN mkdir ./app
+COPY ./src/backend/websocket_chat_golang/ ./app
+WORKDIR ./app
+RUN go build -o main ./cmd
+CMD ["./main"]

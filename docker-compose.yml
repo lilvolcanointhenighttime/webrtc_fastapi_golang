@@ -1,0 +1,41 @@
+version: "3.5"
+
+services:
+  webrtc_fastapi:
+    container_name: webrtc_fastapi
+    build:
+      context: .
+      dockerfile: ./src/backend/docker/Dockerfile.webrtc_fastapi
+    expose:
+      - 8000
+    command: >
+      sh -c "uvicorn src.app:app --host=0.0.0.0 --port=8000"
+
+  websocket_chat_golang:
+    container_name: websocket_chat_golang
+    build:
+      context: .
+      dockerfile: ./src/backend/docker/Dockerfile.websocket_chat_golang
+    expose:
+     - 8088
+
+  nodejs:
+    container_name: nodejs
+    build:
+      context: .
+      dockerfile: ./src/frontend/docker/Dockerfile.nodejs
+    restart: always
+    expose:
+      - 8080
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./src/backend/docker/Dockerfile.nginx
+    restart: always
+    depends_on:
+      - webrtc_fastapi
+      - nodejs
+    ports:
+      - "80:80"
