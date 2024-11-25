@@ -23,7 +23,6 @@ webrtc_router = APIRouter(
 @webrtc_router.post("/offer")
 async def offer(request: OfferSchema):
     data: dict = request.__dict__
-    print(f"\n\n\n\n\n\n{data}\n\n\n\n\n")
     name = data["name"]
     sdp=data["sdp"]
     type=data["type"]
