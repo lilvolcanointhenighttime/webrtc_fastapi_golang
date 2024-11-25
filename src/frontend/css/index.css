@@ -20,7 +20,8 @@ video {
 }
 
 #media {
-    max-width: 1280px;
+    max-width: 640px;
+    max-height: 640px;
 }
 
 #chat-div {
