@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://" + window.location.host + "/api/v2/ws");
+const socket = new WebSocket("https://" + window.location.host + "/api/v2/ws");
 
 socket.onopen = () => {
     console.log("Соединение установлено");
