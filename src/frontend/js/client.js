@@ -108,7 +108,7 @@ function negotiate() {
             type: offer.type,
             name: Math.random() + ""
         };  
-        return fetch('http://' + window.location.host +'/api/v1/webrtc/offer', {
+        return fetch('https://' + window.location.host +'/api/v1/webrtc/offer', {
             body: JSON.stringify({
                 sdp: offer.sdp,
                 type: offer.type,
